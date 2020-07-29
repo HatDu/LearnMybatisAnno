@@ -4,24 +4,30 @@
         "http://mybatis.org/dtd/mybatis-3-config.dtd">
 <!--Mybatis的主配置文件-->
 <configuration>
-<!--    配置环境-->
+    <!--引入外部配置文件-->
+    <properties resource="jdbcCOnfig.properties"></properties>
+    <!--配置别名-->
+    <typeAliases>
+        <package name="com.dnm.domain"/>
+    </typeAliases>
+    <!--配置环境-->
     <environments default="mysql">
-<!--        配置Mysql的环境-->
+        <!--配置Mysql的环境-->
         <environment id="mysql">
-<!--          配置事务的类型-->
+            <!--配置事务的类型-->
             <transactionManager type="JDBC"></transactionManager>
-<!--          配置数据源（连接池）-->
+            <!--配置数据源（连接池）-->
             <dataSource type="POOLED">
-                <property name="driver" value="com.mysql.jdbc.Driver"/>
-                <property name="url" value="jdbc:mysql://localhost:3306/db_mybatis"/>
-                <property name="username" value="root"/>
-                <property name="password" value="root"/>
+                <property name="driver" value="${db.driver}"/>
+                <property name="url" value="${db.url}"/>
+                <property name="username" value="${db.username}"/>
+                <property name="password" value="${db.password}"/>
             </dataSource>
         </environment>
     </environments>
 
-<!--    当使用注解是，应使用class标签-->
+    <!--指定带有注解的dao的位置-->
     <mappers>
-        <mapper class="com.dnm.dao.IUserDao"></mapper>
+        <package name="com.dnm.dao"/>
     </mappers>
 </configuration>
