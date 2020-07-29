@@ -1,13 +1,12 @@
 package com.dnm.dao;
 
 import com.dnm.domain.User;
-import org.apache.ibatis.annotations.Delete;
-import org.apache.ibatis.annotations.Insert;
-import org.apache.ibatis.annotations.Select;
-import org.apache.ibatis.annotations.Update;
+import org.apache.ibatis.annotations.*;
 
 import java.util.List;
 
+// 开启二级缓存
+@CacheNamespace(blocking = true)
 public interface IUserDao {
     /**
      * 查询所有数据
