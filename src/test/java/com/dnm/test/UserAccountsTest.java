@@ -1,9 +1,9 @@
 package com.dnm.test;
 
 import com.dnm.dao.IAccountDao;
-import com.dnm.dao.IUserBadDao;
+import com.dnm.dao.IUserAccountsDao;
 import com.dnm.domain.Account;
-import com.dnm.domain.UserBad;
+import com.dnm.domain.User;
 import org.apache.ibatis.io.Resources;
 import org.apache.ibatis.session.SqlSession;
 import org.apache.ibatis.session.SqlSessionFactoryBuilder;
@@ -15,9 +15,9 @@ import java.io.IOException;
 import java.io.InputStream;
 import java.util.List;
 
-public class AccountTest {
+public class UserAccountsTest {
     SqlSession session = null;
-    IAccountDao accountDao = null;
+    IUserAccountsDao userAccountsDao = null;
 
     @Before
     public void init(){
@@ -25,7 +25,7 @@ public class AccountTest {
         try {
             in = Resources.getResourceAsStream("SqlMapConfig.xml");
             session = new SqlSessionFactoryBuilder().build(in).openSession(true);
-            accountDao = session.getMapper(IAccountDao.class);
+            userAccountsDao = session.getMapper(IUserAccountsDao.class);
         } catch (IOException e) {
             e.printStackTrace();
         }finally {
@@ -50,16 +50,13 @@ public class AccountTest {
      */
     @Test
     public void findAll() {
-        List<Account> accounts = accountDao.findAllAccountUser();
-        for(Account account : accounts){
-            System.out.println(account);
-            System.out.println("\t|---->" + account.getUser());
+        List<User> users = userAccountsDao.findAllUserAccounts();
+        for(User user : users){
+            List<Account> accounts = user.getAccounts();
+            System.out.println(user);
+            for(Account account : accounts){
+                System.out.println("\t|---->" + account);
+            }
         }
-    }
-
-    @Test
-    public void findAccountById(){
-        Account account = accountDao.findAccountById(5);
-        System.out.println(account);
     }
 }

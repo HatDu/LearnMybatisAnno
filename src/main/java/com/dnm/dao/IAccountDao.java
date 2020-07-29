@@ -25,4 +25,11 @@ public interface IAccountDao {
             @Result(property = "user", column = "uid", one = @One(select = "com.dnm.dao.IUserDao.findUserById", fetchType = FetchType.EAGER))
     })
     List<Account> findAllAccountUser();
+
+
+    @Select("select * from account where id=#{id}")
+    Account findAccountById(Integer id);
+
+    @Select("select * from account where uid=#{uid}")
+    List<Account> findAccountByUid(Integer uid);
 }
