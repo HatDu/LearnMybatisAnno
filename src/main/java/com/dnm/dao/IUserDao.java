@@ -19,6 +19,9 @@ public interface IUserDao {
     @Select("select * from user where id=#{id}")
     User findUserById(Integer id);
 
+    @Select("select * from user where username like #{username}")
+    List<User> findUserByName(String username);
+
     @Insert("insert into user(username, address, sex, birthday) values(#{username}, #{address}, #{sex}, #{birthday})")
     void saveUser(User user);
 
@@ -27,4 +30,7 @@ public interface IUserDao {
 
     @Delete("delete from user where id=#{id}")
     void deleteUserById(Integer id);
+
+    @Select("select count(id) from user")
+    int findTotal();
 }

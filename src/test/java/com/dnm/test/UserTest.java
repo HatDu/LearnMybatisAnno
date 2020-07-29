@@ -72,6 +72,13 @@ public class UserTest {
         userDao.saveUser(user);
         findAll();
     }
+    @Test
+    public void dindUserByName(){
+        List<User> users = userDao.findUserByName("%特%");
+        for(User user : users){
+            System.out.println(user);
+        }
+    }
 
     @Test
     public void findUserById(){
@@ -94,5 +101,11 @@ public class UserTest {
         findAll();
         userDao.deleteUserById(16);
         findAll();
+    }
+
+    @Test
+    public void findTotal(){
+        int count = userDao.findTotal();
+        System.out.println("共有"+count+"条数据。");
     }
 }
